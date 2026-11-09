@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapspoint Personal Workspace</title>
+<style>
+:root{--bg:#f4f6fa;--panel:#fff;--text:#172033;--muted:#758096;--line:#e7eaf0;--accent:#5b67e8;--accent2:#eef0ff;--green:#159b72;--amber:#c78319;--red:#d34d5c;--shadow:0 8px 28px rgba(25,35,65,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:650}
+.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#151b2d;color:#fff;padding:26px 18px;display:flex;flex-direction:column;gap:28px}.brand{font-size:16px;font-weight:850;letter-spacing:.25px;white-space:nowrap}.brand small{display:block;color:#9ba5bb;font-size:11px;font-weight:500;margin-top:3px}.nav{display:grid;gap:7px}.nav button{background:transparent;color:#b8c0d2;text-align:left}.nav button.active,.nav button:hover{background:#29314a;color:#fff}.side-note{margin-top:auto;color:#8f9ab0;font-size:12px;line-height:1.6}.main{padding:30px clamp(18px,4vw,48px);max-width:1500px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.eyebrow{color:var(--muted);font-size:12px}.top h1{margin:3px 0;font-size:26px;letter-spacing:-.6px}.primary{background:var(--accent);color:#fff;box-shadow:0 5px 14px #5b67e833}.secondary{background:#f0f2f7;color:#354057}.danger{background:#fff0f1;color:var(--red)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stat{padding:18px}.stat-head{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:29px;margin:10px 0 2px;letter-spacing:-1px}.stat small{color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--accent)}.green{background:var(--green)}.amber{background:var(--amber)}.red{background:var(--red)}
+.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,.8fr);gap:16px}.panel{padding:20px}.panel h2{font-size:16px;margin:0 0 4px}.sub{color:var(--muted);font-size:12px}.progress-wrap{margin-top:18px}.progress-line{height:9px;border-radius:99px;background:#edf0f5;overflow:hidden;margin:10px 0}.progress-line span{height:100%;display:block;background:var(--accent);border-radius:99px}.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.focus-item{padding:13px 0;border-bottom:1px solid var(--line)}.focus-item:last-child{border:0}.focus-title{font-weight:700}.focus-meta{font-size:12px;color:var(--muted);margin-top:4px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0 12px}.toolbar input,.toolbar select{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text)}.toolbar input{flex:1;min-width:180px}.table-panel{margin-top:16px;padding:0;overflow:hidden}.table-head{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:720px}th,td{text-align:left;padding:13px 18px;border-top:1px solid var(--line);font-size:13px}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#fafbfc}.task-name{font-weight:700}.task-desc{font-size:11px;color:var(--muted);margin-top:3px}.pill{display:inline-block;border-radius:99px;padding:4px 9px;font-size:11px;font-weight:700}.p-todo{background:#f0f2f7;color:#68748b}.p-progress{background:#fff4df;color:#a86b0c}.p-done{background:#e6f7f1;color:#12835f}.p-hold{background:#fff0f1;color:#c34352}.p-delegated{background:#eeeaff;color:#6651c8}.priority{font-size:12px}.actions{display:flex;gap:5px}.actions button{padding:6px 8px;background:#f3f5f9;color:#59647a;font-size:11px}.empty{text-align:center;padding:36px;color:var(--muted)}.modal-back{position:fixed;inset:0;background:#10182b77;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal-back.show{display:flex}.modal{width:min(560px,100%);background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 70px #10182b44;max-height:90vh;overflow:auto}.modal h2{margin:0 0 16px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#667188;font-weight:650}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;color:var(--text)}.field textarea{min-height:75px;resize:vertical}
+.date-picker-wrap{position:relative}.date-display{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;color:var(--text);cursor:pointer;text-align:left;min-height:42px}.date-display.placeholder{color:#8993a6}.calendar-pop{position:absolute;z-index:30;top:calc(100% + 7px);left:0;width:290px;max-width:min(290px,85vw);background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;box-shadow:0 14px 40px #17203324;display:none}.calendar-pop.open{display:block}.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.cal-head strong{font-size:13px}.cal-nav{background:#f1f3f8;color:#34405a;padding:5px 9px}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}.cal-cell{height:32px;border-radius:8px;display:grid;place-items:center;font-size:12px}.cal-week{color:#8993a6;font-weight:700}.cal-day{background:#fff;color:var(--text);padding:0}.cal-day:hover{background:var(--accent2)}.cal-day.selected{background:var(--accent);color:#fff}.cal-day.today{outline:1px solid var(--accent)}.cal-empty{height:32px}.cal-foot{display:flex;justify-content:space-between;margin-top:9px}.cal-foot button{background:#f1f3f8;color:#45516a;padding:6px 9px;font-size:12px}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.toast{position:fixed;bottom:20px;right:20px;background:#182139;color:#fff;padding:11px 16px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:20}.toast.show{display:block}.footer-note{font-size:11px;color:var(--muted);margin-top:18px}
+.carryover-note{display:inline-block;margin-top:5px;color:#6651c8;background:#f1efff;border-radius:6px;padding:2px 6px;font-size:10px;font-weight:650}.completion-evidence{white-space:pre-wrap;overflow-wrap:anywhere;color:#59647a;font-size:12px;margin-top:6px}.completion-evidence a{color:#e05b83;text-decoration:underline}.completion-field{background:#f7f8ff;border:1px solid #dcdfff;border-radius:10px;padding:10px}.daily-section{display:none}
+.main.daily-mode .cards,.main.daily-mode #overview,.main.daily-mode .toolbar,.main.daily-mode .table-panel,.main.daily-mode .meeting-section{display:none!important}
+.main.daily-mode .daily-section{display:block}
+.daily-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap;padding:18px 20px;border-bottom:1px solid var(--line)}
+.daily-controls .field{min-width:190px;max-width:260px;flex:1}
+.daily-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:18px 20px}
+.daily-summary-card{background:#f7f8fb;border:1px solid var(--line);border-radius:12px;padding:14px}
+.daily-summary-card strong{font-size:22px;display:block;margin-top:5px}
+.daily-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 4px}
+.daily-report{margin:18px 20px 22px;padding:22px 26px;border-radius:14px;background:#202020;color:#e7e7e7;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;min-height:220px;border:1px solid #343434;font:14px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.daily-report a{color:#ff6f9a;text-decoration:underline;overflow-wrap:anywhere}
+.daily-report .report-heading{font-size:18px;font-weight:800;margin-bottom:8px}
+.daily-report .report-section{font-weight:750;margin-top:15px}
+.daily-report .report-line{margin-left:16px}
+.daily-report .report-subline{margin-left:32px}
+@media(max-width:700px){.daily-summary-grid{grid-template-columns:1fr 1fr}.daily-report{margin:12px;padding:16px;font-size:13px}}
+.meeting-section{display:none}.main.meeting-mode .cards,.main.meeting-mode #overview,.main.meeting-mode .toolbar,.main.meeting-mode .table-panel{display:none!important}.main.meeting-mode .meeting-section{display:block}
+.meeting-tools{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.meeting-tools input{flex:1;min-width:190px;border:1px solid var(--line);border-radius:10px;padding:10px 12px}.meeting-card{padding:17px 0;border-top:1px solid var(--line)}.meeting-card:first-child{border-top:0}.meeting-card h3{margin:0 0 5px;font-size:15px}.meeting-meta{font-size:12px;color:var(--muted);margin-bottom:9px}.meeting-block{margin-top:9px;font-size:13px;white-space:pre-wrap}.meeting-block b{display:block;color:#59647a;font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}.meeting-actions{display:flex;gap:6px;margin-top:12px}.meeting-actions button{background:#f1f3f8;color:#46516a;padding:7px 10px;font-size:12px}
+
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{padding:14px 18px;gap:12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.side-note{display:none}.main{padding:22px 16px}.cards{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}
+@media(max-width:520px){.top{align-items:flex-start;flex-direction:column}.top h1{font-size:22px}.cards{gap:9px}.stat{padding:13px}.stat strong{font-size:25px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">NOER - TEAM LEADER <small>PERSONAL WORKSPACE</small></div>
+  <nav class="nav">
+    <button class="active" data-view="dashboard">▦ &nbsp; Dashboard</button>
+    <button data-view="tasks">☷ &nbsp; Semua Pekerjaan</button>
+    <button data-view="today">◷ &nbsp; Fokus Hari Ini</button>
+    <button data-view="meetings">▤ &nbsp; Notulensi Meeting</button>
+    <button data-view="daily">▦ &nbsp; Ringkasan Harian</button>
+  </nav>
+  <div class="side-note">Ruang kerja pribadi untuk mencatat aktivitas, mengatur prioritas, dan memantau progres pekerjaan.<br><br>Data tersimpan di browser perangkat ini.</div>
+</aside>
+<main class="main">
+  <header class="top">
+    <div><div class="eyebrow" id="todayLabel"></div><h1 id="pageTitle">Dashboard Pekerjaan</h1><div class="sub">Atur pekerjaanmu, satu langkah setiap hari.</div></div>
+    <button class="primary" id="addBtn">＋ Tambah Pekerjaan</button>
+  </header>
+  <section class="cards">
+    <div class="card stat"><div class="stat-head">Total pekerjaan <i class="dot"></i></div><strong id="total">0</strong><small>Semua catatan pekerjaan</small></div>
+    <div class="card stat"><div class="stat-head">Selesai <i class="dot green"></i></div><strong id="done">0</strong><small>Pekerjaan tuntas</small></div>
+    <div class="card stat"><div class="stat-head">Dalam proses <i class="dot amber"></i></div><strong id="progress">0</strong><small>Sedang dikerjakan</small></div>
+    <div class="card stat"><div class="stat-head">Tertunda <i class="dot red"></i></div><strong id="hold">0</strong><small>Perlu perhatian</small></div>
+  </section>
+  <section class="layout" id="overview">
+    <div class="panel">
+      <h2>Ringkasan progres</h2><div class="sub">Persentase pekerjaan yang sudah diselesaikan</div>
+      <div class="progress-wrap"><div class="progress-meta"><span>Progress keseluruhan</span><b id="percent">0%</b></div><div class="progress-line"><span id="progressBar" style="width:0%"></span></div><div class="progress-meta"><span id="doneLabel">0 selesai</span><span id="remainingLabel">0 belum selesai</span></div></div>
+    </div>
+    <div class="panel"><h2>Fokus berikutnya</h2><div class="sub">Pekerjaan terdekat berdasarkan deadline</div><div id="upcoming"></div></div>
+  </section>
+  <div class="toolbar">
+    <input id="search" placeholder="Cari pekerjaan...">
+    <select id="statusFilter"><option value="">Semua status</option><option>Belum Mulai</option><option>Dalam Proses</option><option>Selesai</option><option>Tertunda</option></select>
+    <select id="priorityFilter"><option value="">Semua prioritas</option><option>Tinggi</option><option>Normal</option><option>Rendah</option></select>
+    <div class="date-picker-wrap filter-date-wrap">
+      <input id="dateFilter" type="hidden" aria-label="Filter tanggal input">
+      <button type="button" class="date-display placeholder" id="filterDateDisplay" aria-haspopup="dialog" aria-expanded="false">Pilih tanggal ▾</button>
+      <div class="calendar-pop" id="filterCalendarPop" role="dialog" aria-label="Filter berdasarkan tanggal">
+        <div class="cal-head"><button type="button" class="cal-nav" id="filterCalPrev">‹</button><strong id="filterCalMonth"></strong><button type="button" class="cal-nav" id="filterCalNext">›</button></div>
+        <div class="cal-grid" id="filterCalGrid"></div>
+        <div class="cal-foot"><button type="button" id="filterCalToday">Hari ini</button><button type="button" id="filterCalClear">Hapus tanggal</button></div>
+      </div>
+    </div>
+    <button class="secondary" id="clearFiltersBtn" type="button">Reset Filter</button>
+  </div>
+  <section class="panel table-panel">
+    <div class="table-head"><div><h2 id="listTitle">Daftar Pekerjaan</h2><div class="sub" id="listSub">Kelola semua pekerjaan personalmu</div></div><button class="secondary" id="exportBtn">↓ Export CSV</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Pekerjaan</th><th>Tanggal Input</th><th>Deadline</th><th>Prioritas</th><th>Status</th><th>Delegasi ke</th><th>Aksi</th></tr></thead><tbody id="taskRows"></tbody></table><div class="empty" id="empty" hidden>Belum ada pekerjaan. Klik “Tambah Pekerjaan” untuk mulai mencatat.</div></div>
+  </section>
+  <section class="panel meeting-section" id="meetingSection">
+    <div class="table-head"><div><h2>Notulensi Meeting</h2><div class="sub">Catat setiap rapat, peserta, agenda, hasil diskusi, keputusan, dan tindak lanjut.</div></div><button class="secondary" id="exportMeetingsBtn">↓ Export CSV</button></div>
+    <div class="meeting-tools">
+      <input id="meetingSearch" placeholder="Cari hasil / catatan meeting...">
+      <input id="meetingDateFilter" type="date" aria-label="Filter tanggal meeting">
+      <button class="secondary" id="clearMeetingFilters">Reset Filter</button>
+    </div>
+    <div id="meetingList" style="padding:0 20px 18px"></div>
+  </section>
+  <section class="panel daily-section" id="dailySection">
+    <div class="table-head"><div><h2>Ringkasan Harian</h2><div class="sub">Rekap pekerjaan, pekerjaan selesai, dan pekerjaan yang didelegasikan untuk laporan grup</div></div><button class="secondary" id="copyDailyTop">▣ Salin Laporan</button></div>
+    <div class="daily-controls"><div class="field"><label for="dailyDate">Tanggal laporan</label><input id="dailyDate" type="date"></div><button class="secondary" id="dailyToday">Hari Ini</button><button class="secondary" id="refreshDaily">Perbarui Ringkasan</button></div>
+    <div class="daily-summary-grid"><div class="daily-summary-card"><span class="sub">Daftar pekerjaan</span><strong id="dailyTotal">0</strong></div><div class="daily-summary-card"><span class="sub">Pekerjaan selesai</span><strong id="dailyDone">0</strong></div><div class="daily-summary-card"><span class="sub">Delegasi pekerjaan</span><strong id="dailyDelegated">0</strong></div>
+      <div class="daily-summary-card"><span class="sub">Notulensi meeting</span><strong id="dailyMeetingCount">0</strong></div></div>
+    <div class="daily-actions"><button class="primary" id="copyDailyBtn">▣ Copy Format Laporan Grup</button></div>
+    <div class="daily-report" id="dailyReport"><div class="daily-empty" style="margin:18px">Pilih tanggal untuk membuat ringkasan harian.</div></div>
+  </section>
+  <div class="footer-note">Catatan: versi ini menyimpan data secara lokal di browser (localStorage). Gunakan Export CSV untuk membuat salinan cadangan.</div>
+</main>
+</div>
+<div class="modal-back" id="modalBack"><div class="modal">
+  <h2 id="modalTitle">Tambah Pekerjaan</h2>
+  <form id="taskForm" novalidate><input type="hidden" id="taskId">
+    <div class="form-grid">
+      <div class="field full"><label for="title">Nama pekerjaan *</label><input id="title" maxlength="100" placeholder="Contoh: Menyusun laporan penjualan" autocomplete="off"></div>
+      <div class="field full"><label for="description">Deskripsi / catatan</label><textarea id="description" placeholder="Detail pekerjaan, hasil yang diharapkan, atau catatan..."></textarea></div>
+      <div class="field"><label for="category">Kategori</label><select id="category"><option>Operasional</option><option>Sales</option><option>Marketing</option><option>Administrasi</option><option>Evaluasi</option><option>Pengembangan Diri</option><option>Lainnya</option></select></div>
+      <div class="field"><label for="priority">Prioritas</label><select id="priority"><option>Normal</option><option>Tinggi</option><option>Rendah</option></select></div>
+      <div class="field"><label for="createdAtDisplay">Tanggal & jam input (otomatis)</label><input type="text" id="createdAtDisplay" readonly aria-readonly="true" value="Otomatis saat disimpan"></div>
+      <div class="field"><label for="deadlineDisplay">Deadline</label>
+        <div class="date-picker-wrap">
+          <input type="hidden" id="deadline">
+          <button type="button" class="date-display placeholder" id="deadlineDisplay" aria-haspopup="dialog" aria-expanded="false">Pilih tanggal deadline ▾</button>
+          <div class="calendar-pop" id="calendarPop" role="dialog" aria-label="Pilih tanggal deadline">
+            <div class="cal-head"><button type="button" class="cal-nav" id="calPrev">‹</button><strong id="calMonth"></strong><button type="button" class="cal-nav" id="calNext">›</button></div>
+            <div class="cal-grid" id="calGrid"></div>
+            <div class="cal-foot"><button type="button" id="calToday">Hari ini</button><button type="button" id="calClear">Hapus tanggal</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="field"><label for="status">Status</label><select id="status"><option>Belum Mulai</option><option>Dalam Proses</option><option>Selesai</option><option>Tertunda</option><option>Delegasi</option></select></div>
+      <div class="field full completion-field" id="completionField" style="display:none">
+        <label for="completionEvidence">Bukti / catatan pekerjaan selesai *</label>
+        <textarea id="completionEvidence" placeholder="Tuliskan hasil pekerjaan, link Google Sheets/Docs, link report, atau bukti penyelesaian lainnya..."></textarea>
+        <small style="color:#758096;font-size:11px">Wajib diisi jika status pekerjaan adalah Selesai. Bisa berisi catatan dan satu atau beberapa link bukti.</small>
+      </div>
+      <div class="field full" id="leaderField">
+        <label for="teamLeader">Delegasikan ke Team Leader</label>
+        <select id="teamLeader">
+          <option value="">Pilih Team Leader (isi jika status Delegasi)</option>
+          <option>Tristan</option><option>Ridho</option><option>Dhion</option><option>Putra</option>
+          <option>Ciyung</option><option>Akio</option><option>Manjis</option><option>Piko</option>
+        </select>
+        <small id="leaderHelp" style="color:#758096;font-size:11px">Pilih status “Delegasi” jika pekerjaan diberikan kepada Team Leader.</small>
+      </div>
+    </div>
+    <div class="modal-actions"><button type="button" class="secondary" id="cancelBtn">Batal</button><button class="primary" type="button" id="saveBtn">Simpan Pekerjaan</button></div>
+  </form>
+</div></div>
+<div class="modal-back" id="meetingModalBack"><div class="modal">
+  <h2 id="meetingModalTitle">Tambah Notulensi Meeting</h2>
+  <form id="meetingForm" novalidate>
+    <input type="hidden" id="meetingId">
+    <div class="form-grid">
+      <div class="field full"><label for="meetingNote">Hasil / Catatan Meeting *</label><textarea id="meetingNote" rows="9" placeholder="Tuliskan seluruh hasil pembahasan meeting di sini..."></textarea></div>
+    </div>
+    <div class="modal-actions"><button type="button" class="secondary" id="cancelMeetingBtn">Batal</button><button type="button" class="primary" id="saveMeetingBtn">Simpan Notulensi</button></div>
+  </form>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='rapspoint_personal_tasks_v1';
+let tasks=[];
+try { tasks=JSON.parse(localStorage.getItem(KEY)||'[]') || []; } catch(err) { tasks=[]; }
+let view='dashboard';
+const MEETING_KEY='noer_team_leader_meeting_minutes_v1';
+let meetings=[];
+try{meetings=JSON.parse(localStorage.getItem(MEETING_KEY)||'[]')||[]}catch(err){meetings=[]}
+const saveMeetings=()=>{try{localStorage.setItem(MEETING_KEY,JSON.stringify(meetings));return true}catch(err){return false}};
+
+const $=id=>document.getElementById(id);
+const today=new Date(); today.setHours(0,0,0,0);
+$('todayLabel').textContent=new Intl.DateTimeFormat('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
+const save=()=>{ try { localStorage.setItem(KEY,JSON.stringify(tasks)); return true; } catch(err) { return false; } };
+// Tanggal kerja aktif terpisah dari tanggal input asli agar pekerjaan bisa dibawa ke hari berikutnya.
+const dateKeyLocal=d=>{const x=d instanceof Date?d:new Date(d);return [x.getFullYear(),String(x.getMonth()+1).padStart(2,'0'),String(x.getDate()).padStart(2,'0')].join('-')};
+const todayKeyLocal=()=>dateKeyLocal(new Date());
+function rollOverUnfinishedTasks(){
+ const todayKey=todayKeyLocal();let changed=false;
+ tasks.forEach(t=>{
+  if(!t.workDate){t.workDate=t.createdAt?dateKeyLocal(t.createdAt):todayKey;changed=true;}
+  if(t.status==='Selesai')return;
+  if(t.workDate<todayKey){
+   const cursor=new Date(t.workDate+'T12:00:00');
+   const end=new Date(todayKey+'T12:00:00');
+   let moved=0;
+   while(cursor<end){cursor.setDate(cursor.getDate()+1);moved++;}
+   t.carryOverCount=(Number(t.carryOverCount)||0)+moved;
+   t.lastCarriedFrom=t.workDate;
+   t.workDate=todayKey;
+   t.lastCarryOverAt=new Date().toISOString();
+   changed=true;
+  }
+ });
+ if(changed)save();
+}
+rollOverUnfinishedTasks();
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dateFmt=d=>d?new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(d+'T00:00:00')):'—';
+const dateTimeFmt=d=>d?new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(d)):'—';
+const localDateKey=d=>{if(!d)return '';const x=new Date(d);return [x.getFullYear(),String(x.getMonth()+1).padStart(2,'0'),String(x.getDate()).padStart(2,'0')].join('-')};
+let calendarMonth=new Date();calendarMonth.setDate(1);
+const monthNames=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+function updateDeadlineDisplay(){const v=$('deadline').value;const b=$('deadlineDisplay');b.textContent=v?dateFmt(v):'Pilih tanggal deadline ▾';b.classList.toggle('placeholder',!v)}
+
+let filterCalendarMonth=new Date();filterCalendarMonth.setDate(1);
+function updateFilterDateDisplay(){const v=$('dateFilter').value;const b=$('filterDateDisplay');b.textContent=v?dateFmt(v):'Pilih tanggal ▾';b.classList.toggle('placeholder',!v)}
+function renderFilterCalendar(){
+ const y=filterCalendarMonth.getFullYear(),m=filterCalendarMonth.getMonth(),offset=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate(),selected=$('dateFilter').value,todayKey=localDateKey(new Date().toISOString());
+ $('filterCalMonth').textContent=monthNames[m]+' '+y;
+ const heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(x=>`<div class="cal-cell cal-week">${x}</div>`).join('');
+ let cells='';for(let i=0;i<offset;i++)cells+='<div class="cal-empty"></div>';
+ for(let d=1;d<=days;d++){const key=[y,String(m+1).padStart(2,'0'),String(d).padStart(2,'0')].join('-');const cls=['cal-cell','cal-day',key===selected?'selected':'',key===todayKey?'today':''].filter(Boolean).join(' ');cells+=`<button type="button" class="${cls}" data-filter-date="${key}">${d}</button>`}
+ $('filterCalGrid').innerHTML=heads+cells;
+}
+function showFilterCalendar(show){$('filterCalendarPop').classList.toggle('open',show);$('filterDateDisplay').setAttribute('aria-expanded',String(show));if(show){if($('dateFilter').value){const d=new Date($('dateFilter').value+'T00:00:00');filterCalendarMonth=new Date(d.getFullYear(),d.getMonth(),1)}renderFilterCalendar()}}
+$('filterDateDisplay').addEventListener('click',()=>showFilterCalendar(!$('filterCalendarPop').classList.contains('open')));
+$('filterCalPrev').addEventListener('click',()=>{filterCalendarMonth.setMonth(filterCalendarMonth.getMonth()-1);renderFilterCalendar()});
+$('filterCalNext').addEventListener('click',()=>{filterCalendarMonth.setMonth(filterCalendarMonth.getMonth()+1);renderFilterCalendar()});
+$('filterCalGrid').addEventListener('click',e=>{const b=e.target.closest('[data-filter-date]');if(!b)return;$('dateFilter').value=b.dataset.filterDate;updateFilterDateDisplay();showFilterCalendar(false);render()});
+$('filterCalToday').addEventListener('click',()=>{$('dateFilter').value=localDateKey(new Date().toISOString());updateFilterDateDisplay();showFilterCalendar(false);render()});
+$('filterCalClear').addEventListener('click',()=>{$('dateFilter').value='';updateFilterDateDisplay();showFilterCalendar(false);render()});
+function renderCalendar(){
+ const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth(),first=new Date(y,m,1),offset=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate(),selected=$('deadline').value,todayKey=localDateKey(new Date().toISOString());
+ $('calMonth').textContent=monthNames[m]+' '+y;
+ const heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(x=>`<div class="cal-cell cal-week">${x}</div>`).join('');
+ let cells='';for(let i=0;i<offset;i++)cells+='<div class="cal-empty"></div>';
+ for(let d=1;d<=days;d++){const key=[y,String(m+1).padStart(2,'0'),String(d).padStart(2,'0')].join('-');const cls=['cal-cell','cal-day',key===selected?'selected':'',key===todayKey?'today':''].filter(Boolean).join(' ');cells+=`<button type="button" class="${cls}" data-date="${key}">${d}</button>`}
+ $('calGrid').innerHTML=heads+cells;
+}
+function showCalendar(show){$('calendarPop').classList.toggle('open',show);$('deadlineDisplay').setAttribute('aria-expanded',String(show));if(show){if($('deadline').value){const d=new Date($('deadline').value+'T00:00:00');calendarMonth=new Date(d.getFullYear(),d.getMonth(),1)}renderCalendar()}}
+$('deadlineDisplay').addEventListener('click',()=>showCalendar(!$('calendarPop').classList.contains('open')));
+$('calPrev').addEventListener('click',()=>{calendarMonth.setMonth(calendarMonth.getMonth()-1);renderCalendar()});
+$('calNext').addEventListener('click',()=>{calendarMonth.setMonth(calendarMonth.getMonth()+1);renderCalendar()});
+$('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-date]');if(!b)return;$('deadline').value=b.dataset.date;updateDeadlineDisplay();showCalendar(false)});
+$('calToday').addEventListener('click',()=>{$('deadline').value=localDateKey(new Date().toISOString());updateDeadlineDisplay();showCalendar(false)});
+$('calClear').addEventListener('click',()=>{$('deadline').value='';updateDeadlineDisplay();showCalendar(false)});
+
+const statusClass=s=>({'Belum Mulai':'p-todo','Dalam Proses':'p-progress','Selesai':'p-done','Tertunda':'p-hold','Delegasi':'p-delegated'}[s]||'p-todo');
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function evidenceHtml(value){
+ if(!value)return '';
+ return '<div class="completion-evidence"><b>Bukti selesai:</b> '+esc(value).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')+'</div>';
+}
+function render(){
+ const main=document.querySelector('.main');
+ main.classList.toggle('meeting-mode',view==='meetings');
+ main.classList.toggle('daily-mode',view==='daily');
+ $('addBtn').style.display=view==='daily'?'none':'';
+ $('addBtn').textContent=view==='meetings'?'＋ Tambah Notulensi':'＋ Tambah Pekerjaan';
+ if(view==='daily'){
+   $('pageTitle').textContent='Ringkasan Harian';
+   document.querySelector('.top .sub').textContent='Buat laporan harian siap salin untuk dikirim ke grup.';
+   renderDailySummary();return;
+ }
+ if(view==='meetings'){
+   $('pageTitle').textContent='Notulensi Meeting';
+   document.querySelector('.top .sub').textContent='Catat hasil dan pembahasan meeting dalam satu kolom.';
+   renderMeetings();return;
+ }
+ document.querySelector('.top .sub').textContent='Atur pekerjaanmu, satu langkah setiap hari.';
+ const total=tasks.length,done=tasks.filter(t=>t.status==='Selesai').length,prog=tasks.filter(t=>t.status==='Dalam Proses').length,hold=tasks.filter(t=>t.status==='Tertunda').length,pct=total?Math.round(done/total*100):0;
+ $('total').textContent=total;$('done').textContent=done;$('progress').textContent=prog;$('hold').textContent=hold;$('percent').textContent=pct+'%';$('progressBar').style.width=pct+'%';$('doneLabel').textContent=done+' selesai';$('remainingLabel').textContent=(total-done)+' belum selesai';
+ const next=tasks.filter(t=>t.status!=='Selesai').sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999')).slice(0,3);
+ $('upcoming').innerHTML=next.length?next.map(t=>`<div class="focus-item"><div class="focus-title">${esc(t.title)}</div><div class="focus-meta">${esc(t.category)} · ${t.deadline?'Deadline '+dateFmt(t.deadline):'Belum ada deadline'}</div></div>`).join(''):'<div class="empty">Belum ada pekerjaan aktif.</div>';
+ let filtered=[...tasks];const q=$('search').value.toLowerCase(),st=$('statusFilter').value,pr=$('priorityFilter').value,dt=$('dateFilter').value;
+ if(q)filtered=filtered.filter(t=>(t.title+' '+t.description+' '+t.category).toLowerCase().includes(q));
+ if(st)filtered=filtered.filter(t=>t.status===st);if(pr)filtered=filtered.filter(t=>t.priority===pr);if(dt)filtered=filtered.filter(t=>(t.workDate||localDateKey(t.createdAt))===dt);
+ if(view==='today')filtered=filtered.filter(t=>t.deadline===today.toISOString().slice(0,10)&&t.status!=='Selesai');
+ if(view==='tasks'){$('addBtn').textContent='＋ Tambah Pekerjaan';$('pageTitle').textContent='Semua Pekerjaan';$('listTitle').textContent='Semua Pekerjaan';$('listSub').textContent='Daftar lengkap aktivitas personal';$('overview').style.display='none'}
+ else if(view==='today'){$('addBtn').textContent='＋ Tambah Pekerjaan';$('pageTitle').textContent='Fokus Hari Ini';$('listTitle').textContent='Pekerjaan Hari Ini';$('listSub').textContent='Pekerjaan dengan deadline hari ini';$('overview').style.display='none'}
+ else{$('addBtn').textContent='＋ Tambah Pekerjaan';$('pageTitle').textContent='Dashboard Pekerjaan';$('listTitle').textContent='Daftar Pekerjaan';$('listSub').textContent='Kelola semua pekerjaan personalmu';$('overview').style.display='grid'}
+ filtered.sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999'));
+ $('taskRows').innerHTML=filtered.map(t=>`<tr><td><div class="task-name">${esc(t.title)}</div><div class="task-desc">${esc(t.category)}${t.description?' · '+esc(t.description.slice(0,65)):''}${t.carryOverCount>0&&t.status!=='Selesai'?'<div class="carryover-note">↻ Dibawa ke '+dateFmt(t.workDate)+' · '+t.carryOverCount+' hari</div>':''}${evidenceHtml(t.completionEvidence)}</div></td><td>${dateTimeFmt(t.createdAt)}</td><td>${dateFmt(t.deadline)}</td><td><span class="priority">${t.priority==='Tinggi'?'🔴':t.priority==='Rendah'?'🟢':'🟡'} ${esc(t.priority)}</span></td><td><span class="pill ${statusClass(t.status)}">${esc(t.status)}</span></td><td>${t.teamLeader?esc(t.teamLeader):(t.status==='Delegasi'?'Belum dipilih':'—')}</td><td><div class="actions"><button onclick="editTask('${t.id}')">Edit</button><button onclick="cycleTask('${t.id}')">Status</button><button onclick="deleteTask('${t.id}')">Hapus</button></div></td></tr>`).join('');
+ $('empty').hidden=filtered.length>0;
+}
+function toggleCompletionField(){
+ const completed=$('status').value==='Selesai';
+ $('completionField').style.display=completed?'block':'none';
+ $('completionEvidence').required=completed;
+}
+function toggleLeaderField(){
+ const delegated=$('status').value==='Delegasi';
+ $('leaderField').style.display='grid';
+ $('teamLeader').required=delegated;
+ $('leaderField').style.border=delegated?'1px solid #b9b2ff':'1px solid transparent';
+ $('leaderField').style.borderRadius='10px';
+ $('leaderField').style.padding=delegated?'10px':'0';
+ $('leaderHelp').textContent=delegated?'Wajib pilih Team Leader penerima delegasi sebelum menyimpan.':'Pilih status “Delegasi” jika pekerjaan diberikan kepada Team Leader.';
+}
+function openModal(t){$('taskForm').reset();$('taskId').value=t?.id||'';$('modalTitle').textContent=t?'Edit Pekerjaan':'Tambah Pekerjaan';$('createdAtDisplay').value=t?.createdAt?dateTimeFmt(t.createdAt):dateTimeFmt(new Date().toISOString())+' (akan dicatat saat simpan)';if(t){$('title').value=t.title;$('description').value=t.description||'';$('category').value=t.category;$('priority').value=t.priority;$('deadline').value=t.deadline||'';$('status').value=t.teamLeader?'Delegasi':t.status;$('teamLeader').value=t.teamLeader||'';$('completionEvidence').value=t.completionEvidence||''}updateDeadlineDisplay();showCalendar(false);toggleLeaderField();toggleCompletionField();$('modalBack').classList.add('show')}
+function closeModal(){showCalendar(false);$('modalBack').classList.remove('show')}
+$('addBtn').onclick=()=>{if(view==='meetings')openMeetingModal();else openModal()};$('cancelBtn').onclick=closeModal;
+$('modalBack').addEventListener('click',e=>{if(e.target===$('modalBack'))closeModal()});
+
+
+function dailyKeyFromIso(iso){
+ if(!iso)return '';const d=new Date(iso);if(Number.isNaN(d.getTime()))return '';
+ return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+}
+function buildDailyReport(){
+ const date=$('dailyDate').value||localDateKey(new Date().toISOString());
+ const all=tasks.filter(t=>(t.workDate||dailyKeyFromIso(t.createdAt))===date || (t.status==='Selesai'&&dailyKeyFromIso(t.completedAt||t.createdAt)===date));
+ const completed=tasks.filter(t=>t.status==='Selesai'&&dailyKeyFromIso(t.completedAt||t.createdAt)===date);
+ const delegated=tasks.filter(t=>t.status==='Delegasi'&&(t.workDate||dailyKeyFromIso(t.createdAt))===date);
+ const dailyMeetings=meetings.filter(m=>dailyKeyFromIso(m.createdAt)===date || (!m.createdAt && m.date===date)).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+ const lines=[`> ${dateFmt(date)}`,'','*Pekerjaan*'];
+ if(all.length){
+  all.forEach(t=>{
+   const status=t.status==='Selesai'?' ✅':t.status==='Delegasi'?` (Delegasi ${t.teamLeader||'Belum ditentukan'})`:t.status==='Dalam Proses'?' (Dalam Proses)':t.status==='Tertunda'?' (Tertunda)':'';
+   lines.push(`  – ${t.title}${status}${t.carryOverCount>0&&t.status!=='Selesai'?' (Lanjutan dari '+dateFmt(t.lastCarriedFrom)+')':''}`);
+  });
+ }else lines.push('  – Tidak ada pekerjaan yang dicatat pada tanggal ini');
+ lines.push('','*Pekerjaan Selesai*');
+ if(completed.length){
+  completed.forEach(t=>{
+   lines.push(`  – ${t.title} ✅`);
+   if(t.completionEvidence)lines.push(`     Bukti/Catatan: ${t.completionEvidence}`);
+  });
+ }else lines.push('  – Belum ada pekerjaan yang diselesaikan pada tanggal ini');
+ lines.push('','*Delegasi Pekerjaan*');
+ if(delegated.length){
+  delegated.forEach(t=>lines.push(`  – ${t.title} (Delegasi ${t.teamLeader||'Belum ditentukan'})`));
+ }else lines.push('  – Tidak ada pekerjaan yang didelegasikan pada tanggal ini');
+ lines.push('','*Notulensi Meeting*');
+ if(dailyMeetings.length){
+  dailyMeetings.forEach((m,i)=>{
+   lines.push(`  ${meetingNote(m)}`);
+  });
+ }else lines.push('  – Tidak ada catatan meeting pada tanggal ini');
+ return {text:lines.join('\n'),all,completed,delegated,dailyMeetings};
+}
+function renderDailySummary(){
+ const r=buildDailyReport();
+ $('dailyTotal').textContent=r.all.length;
+ $('dailyDone').textContent=r.completed.length;
+ $('dailyDelegated').textContent=r.delegated.length;
+ $('dailyMeetingCount').textContent=r.dailyMeetings.length;
+ const escaped=esc(r.text).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+ $('dailyReport').innerHTML=escaped;
+}
+async function copyDailyReport(){
+ const text=buildDailyReport().text;
+ try{
+  if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(text);
+  else{const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();const ok=document.execCommand('copy');a.remove();if(!ok)throw Error('copy failed')}
+  toast('Format ringkasan harian berhasil disalin');
+ }catch(e){toast('Gagal menyalin. Silakan blok teks laporan dan salin manual.')}
+}
+
+function meetingNote(m){
+ if(m.note)return m.note;
+ return [m.discussion,m.agenda,m.decisions,m.actions,m.participants,m.title].filter(Boolean).join('\n');
+}
+function renderMeetings(){
+ const q=$('meetingSearch').value.toLowerCase(),dt=$('meetingDateFilter').value;
+ let list=[...meetings].filter(m=>{
+  const note=meetingNote(m).toLowerCase();
+  const createdDate=dailyKeyFromIso(m.createdAt)||m.date||'';
+  return (!q||note.includes(q))&&(!dt||createdDate===dt);
+ }).sort((a,b)=>(b.createdAt||b.date||'').localeCompare(a.createdAt||a.date||''));
+ $('meetingList').innerHTML=list.length?list.map(m=>`<article class="meeting-card">
+  <div class="meeting-meta">Dicatat ${dateTimeFmt(m.createdAt)}</div>
+  <div class="meeting-block">${esc(meetingNote(m)).replace(/\n/g,'<br>')}</div>
+  <div class="meeting-actions"><button onclick="editMeeting('${m.id}')">Edit</button><button onclick="deleteMeeting('${m.id}')">Hapus</button></div>
+ </article>`).join(''):'<div class="empty">Belum ada catatan meeting. Klik “Tambah Notulensi” untuk mulai mencatat.</div>';
+}
+function openMeetingModal(m){
+ $('meetingForm').reset();$('meetingId').value=m?.id||'';
+ $('meetingModalTitle').textContent=m?'Edit Catatan Meeting':'Tambah Catatan Meeting';
+ $('meetingNote').value=m?meetingNote(m):'';
+ $('meetingModalBack').classList.add('show');
+}
+function closeMeetingModal(){$('meetingModalBack').classList.remove('show')}
+function saveMeeting(){
+ const note=$('meetingNote').value.trim();
+ if(!note){toast('Hasil / catatan meeting wajib diisi');$('meetingNote').focus();return}
+ const id=$('meetingId').value,old=id?meetings.find(m=>m.id===id):null;
+ const item={id:id||String(Date.now()),note,createdAt:old?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
+ if(id){const i=meetings.findIndex(m=>m.id===id);if(i>=0)meetings[i]={...meetings[i],...item}}else meetings.push(item);
+ const ok=saveMeetings();closeMeetingModal();renderMeetings();toast(ok?(id?'Catatan meeting diperbarui':'Catatan meeting berhasil disimpan'):'Penyimpanan browser gagal');
+}
+window.editMeeting=id=>{const m=meetings.find(x=>x.id===id);if(m)openMeetingModal(m)};
+window.deleteMeeting=id=>{if(confirm('Hapus notulensi meeting ini?')){meetings=meetings.filter(m=>m.id!==id);saveMeetings();renderMeetings();toast('Notulensi dihapus')}};
+function saveTask(e){if(e)e.preventDefault();const title=$('title').value.trim();if(!title){toast('Nama pekerjaan wajib diisi terlebih dahulu');$('title').focus();return}const id=$('taskId').value;const status=$('status').value;const teamLeader=$('teamLeader').value;if(status==='Delegasi'&&!teamLeader){toast('Pilih Team Leader penerima delegasi');$('teamLeader').focus();return}const completionEvidence=$('completionEvidence').value.trim();if(status==='Selesai'&&!completionEvidence){toast('Bukti atau catatan pekerjaan selesai wajib diisi');$('completionEvidence').focus();return}const previous=id?tasks.find(t=>t.id===id):null;const item={id:id||String(Date.now()),title,description:$('description').value.trim(),category:$('category').value,priority:$('priority').value,deadline:$('deadline').value,status,teamLeader,completionEvidence,completedAt:status==='Selesai'?(previous?.completedAt||new Date().toISOString()):'',createdAt:previous?.createdAt||new Date().toISOString(),workDate:previous?.workDate||todayKeyLocal(),carryOverCount:previous?.carryOverCount||0,lastCarriedFrom:previous?.lastCarriedFrom||''};if(id){const i=tasks.findIndex(t=>t.id===id);if(i>=0)tasks[i]={...tasks[i],...item}}else tasks.push(item);const persisted=save();closeModal();render();toast(persisted?(id?'Pekerjaan diperbarui':'Pekerjaan berhasil ditambahkan'):'Tersimpan sementara. Browser memblokir penyimpanan lokal.')}
+$('saveBtn').addEventListener('click',saveTask);
+$('taskForm').addEventListener('submit',e=>{e.preventDefault();saveTask(e)});
+window.editTask=id=>{const t=tasks.find(x=>x.id===id);if(t)openModal(t)};
+window.deleteTask=id=>{if(confirm('Hapus pekerjaan ini?')){tasks=tasks.filter(t=>t.id!==id);save();render();toast('Pekerjaan dihapus')}};
+window.cycleTask=id=>{const t=tasks.find(x=>x.id===id),states=['Belum Mulai','Dalam Proses','Selesai','Tertunda'],next=states[(states.indexOf(t.status)+1)%states.length];if(next==='Selesai'){openModal({...t,status:'Selesai'});toast('Isi bukti atau catatan sebelum menyelesaikan pekerjaan');return}t.status=next;t.teamLeader='';save();render();toast('Status diperbarui: '+t.status)};
+$('status').addEventListener('change',()=>{toggleLeaderField();toggleCompletionField()});
+$('teamLeader').addEventListener('change',()=>{
+ if($('teamLeader').value){
+   $('status').value='Delegasi';
+   toggleLeaderField();
+ }
+});
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');view=b.dataset.view;render()});
+$('dailyDate').value=localDateKey(new Date().toISOString());
+$('dailyDate').addEventListener('change',renderDailySummary);
+$('dailyToday').addEventListener('click',()=>{$('dailyDate').value=localDateKey(new Date().toISOString());renderDailySummary()});
+$('refreshDaily').addEventListener('click',renderDailySummary);
+$('copyDailyBtn').addEventListener('click',copyDailyReport);
+$('copyDailyTop').addEventListener('click',copyDailyReport);
+$('cancelMeetingBtn').addEventListener('click',closeMeetingModal);
+$('meetingModalBack').addEventListener('click',e=>{if(e.target===$('meetingModalBack'))closeMeetingModal()});
+$('saveMeetingBtn').addEventListener('click',saveMeeting);
+$('meetingForm').addEventListener('submit',e=>{e.preventDefault();saveMeeting()});
+$('meetingSearch').addEventListener('input',renderMeetings);
+$('meetingDateFilter').addEventListener('change',renderMeetings);
+$('clearMeetingFilters').addEventListener('click',()=>{$('meetingSearch').value='';$('meetingDateFilter').value='';renderMeetings()});
+$('exportMeetingsBtn').addEventListener('click',()=>{
+ if(!meetings.length){toast('Belum ada notulensi untuk diexport');return}
+ const rows=[['Hasil / Catatan Meeting','Tanggal Dicatat'],...meetings.map(m=>[meetingNote(m),dateTimeFmt(m.createdAt)])];
+ const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\\r\\n');
+ const blob=new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='noer_team_leader_notulensi_meeting.csv';a.click();URL.revokeObjectURL(a.href);toast('Export notulensi berhasil dibuat')
+});
+['search','statusFilter','priorityFilter','dateFilter'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));
+$('clearFiltersBtn').addEventListener('click',()=>{$('search').value='';$('statusFilter').value='';$('priorityFilter').value='';$('dateFilter').value='';updateFilterDateDisplay();showFilterCalendar(false);render()});
+$('exportBtn').onclick=()=>{if(!tasks.length){toast('Belum ada data untuk diexport');return}const rows=[['Pekerjaan','Deskripsi','Kategori','Tanggal Input','Deadline','Prioritas','Status','Team Leader','Bukti / Catatan Selesai'],...tasks.map(t=>[t.title,t.description,t.category,dateTimeFmt(t.createdAt),t.deadline,t.priority,t.status,t.teamLeader||'',t.completionEvidence||''])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rapspoint_catatan_pekerjaan.csv';a.click();URL.revokeObjectURL(a.href);toast('File CSV berhasil dibuat')};
+updateFilterDateDisplay();
+render();
+</script>
+</body></html>
